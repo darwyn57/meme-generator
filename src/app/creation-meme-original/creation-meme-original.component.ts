@@ -26,11 +26,19 @@ export class CreationMemeOriginalComponent implements OnInit {
   }
   onSubmit(){
     if (this.formulaire.valid){
+
+      const formData = new FormData();
+      if(this.fichier != null){
+        formData.append("image", this.fichier);
+      }
+      formData.append("meme", JSON.stringify(this.formulaire.value))
+
+
       const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
+      //.set('Content-Type', 'application/json')
       .set('Access-Control-Allow-Origin', '*');
 
-      this.client.post("http://localhost:4000/meme", this.formulaire.value, { 'headers': headers } )
+      this.client.post("http://localhost:4000/meme", formData, { 'headers': headers } )
       .subscribe(reponse =>alert ("meme ajouté"))
     }
   }
