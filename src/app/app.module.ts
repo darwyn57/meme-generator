@@ -10,6 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   
 
    

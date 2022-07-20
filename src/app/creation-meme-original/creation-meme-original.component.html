@@ -12,6 +12,13 @@
       <textarea matInput placeholder="Ex.Meme quand on doute" formControlName="description"></textarea>
       <mat-error >la description est obligatoire</mat-error>
     </mat-form-field>
+  <div>
+      <input #inputImage type="file" style="display: none" (change)="onFichierChange($event)">
+      {{fichier?.name || "Aucun fichier sélectionné"}}
+      <button mat-mini-fab color="primary" (click)="$event.preventDefault(); inputImage.click()">
+        <mat-icon>attach_file</mat-icon>
+        </button>
+  </div>
     <button mat-raised-button color="primary">Ajouter</button>
   </form>
 </div>

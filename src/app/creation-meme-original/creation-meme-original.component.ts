@@ -9,6 +9,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CreationMemeOriginalComponent implements OnInit {
 
+  public fichier: File | null = null
+
   constructor(private client : HttpClient) { }  
 
   public formulaire: FormGroup= new FormGroup(
@@ -17,6 +19,10 @@ export class CreationMemeOriginalComponent implements OnInit {
   )
   ngOnInit(): void {
 
+  }
+  onFichierChange(e: any) {
+    
+    this.fichier = e.target.files[0];
   }
   onSubmit(){
     if (this.formulaire.valid){

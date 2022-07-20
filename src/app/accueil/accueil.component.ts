@@ -12,13 +12,16 @@ export class AccueilComponent implements OnInit {
   constructor(private client: HttpClient) { }
 
   ngOnInit(): void {
-    this.client.get("http://localhost:4000/memes")
-    .subscribe(listeMeme => this.listeMeme= listeMeme)
+    this.raffraichir();
   }
+   
+  raffraichir(){ this.client.get("http://localhost:4000/memes")
+  .subscribe(listeMeme => this.listeMeme= listeMeme)
+}
 
   onClickSupprimer(nomMeme : string){
     this.client.delete("http://localhost:4000/meme/"+nomMeme)
-    .subscribe(message => alert("meme supprimé"))
+    .subscribe(message => this.raffraichir())
   }
 
 }
