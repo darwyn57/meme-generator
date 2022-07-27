@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +10,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CreationMemeOriginalComponent implements OnInit {
 
   public fichier: File | null = null
+  public sourceImage: String = "";
+  public progressionUpload: number | null = null;
 
   constructor(private client : HttpClient) { }  
 
@@ -21,9 +23,14 @@ export class CreationMemeOriginalComponent implements OnInit {
 
   }
   onFichierChange(e: any) {
+    if(e.target.files[0]){
     
-    this.fichier = e.target.files[0];
+      this.fichier = e.target.files[0];
+      const reader = new FileReader();      
+      reader.onload = (eventReader: any) => this.sourceImage = eventReader.target.result
+      reader.readAsDataURL(e.target.files[0]);
   }
+}
   onSubmit(){
     if (this.formulaire.valid){
 
@@ -38,8 +45,23 @@ export class CreationMemeOriginalComponent implements OnInit {
       //.set('Content-Type', 'application/json')
       .set('Access-Control-Allow-Origin', '*');
 
-      this.client.post("http://localhost:4000/meme", formData, { 'headers': headers } )
-      .subscribe(reponse =>alert ("meme ajouté"))
+      this.client.post("http://localhost:4000/meme", formData, { 'headers': headers,reportProgress:true,observe:'events' } )
+      .subscribe({
+        next: (retour)=>{
+          if(retour.type == HttpEventType.UploadProgress && retour.total ){
+            this.progressionUpload = Math.round(100*(retour.loaded / retour.total))
+          }
+        },          
+          error: (e)=>{
+            if(e.status == 400){
+              alert("Image trop lourde")
+            }else{
+              alert("Erreur")
+            }
+          },
+          complete : ()=> alert("Meme ajouté")
+          
+      })
     }
   }
 

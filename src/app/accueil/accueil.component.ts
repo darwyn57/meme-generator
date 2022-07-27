@@ -16,7 +16,7 @@ export class AccueilComponent implements OnInit {
   }
    
   raffraichir(){ this.client.get("http://localhost:4000/memes")
-  .subscribe(listeMeme => this.listeMeme= listeMeme)
+  .subscribe(listeMeme => this.listeMeme = listeMeme)
 }
 
   onClickSupprimer(nomMeme : string){

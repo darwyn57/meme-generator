@@ -11,12 +11,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { InscriptionComponent } from './inscription/inscription.component';
+
 
 @NgModule({
   declarations: [
     AppComponent, // Le composant principal de l'application
     AccueilComponent, // Le composant de l'accueil
-    CreationMemeOriginalComponent // Le composant de la création de meme original
+    CreationMemeOriginalComponent, InscriptionComponent // Le composant de la création de meme original
   ],
   imports: [
     BrowserModule, // Le module de base de l'application
@@ -28,10 +31,9 @@ import {MatIconModule} from '@angular/material/icon';
     ReactiveFormsModule,
     MatButtonModule,
     HttpClientModule,
-    MatIconModule
-  
-
-   
+    MatIconModule,
+    MatProgressBarModule
+     
   ],
   providers: [],
   bootstrap: [AppComponent]
