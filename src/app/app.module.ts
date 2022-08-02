@@ -13,13 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 
 @NgModule({
   declarations: [
     AppComponent, // Le composant principal de l'application
     AccueilComponent, // Le composant de l'accueil
-    CreationMemeOriginalComponent, InscriptionComponent // Le composant de la création de meme original
+    CreationMemeOriginalComponent, InscriptionComponent, ConnexionComponent // Le composant de la création de meme original
   ],
   imports: [
     BrowserModule, // Le module de base de l'application
