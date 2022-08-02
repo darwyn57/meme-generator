@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConnecteService } from '../connecte.service';
 
 @Component({
@@ -18,7 +19,11 @@ export class ConnexionComponent implements OnInit {
 
 
 
-  constructor(private client : HttpClient, private connecteService: ConnecteService ) { }
+  constructor(
+    private client : HttpClient, 
+    private connecteService: ConnecteService,
+    private router: Router
+    ) { }
 
 
   
@@ -34,9 +39,15 @@ export class ConnexionComponent implements OnInit {
         .set('Access-Control-Allow-Origin', '*');
 
       this.client.post("http://localhost:4000/connexion",this.formulaire.value,{ headers })
-      .subscribe(utilisateur => {
-        this.connecteService.setConnecte(true)
-      })
+      .subscribe(
+        {
+          next: (resultat)=>{
+            this.connecteService.setConnecte(true)
+            this.router.navigateByUrl("/")  
+          },
+          error: (erreur)=> alert("mauvais login/password")
+        }
+      )
     }
   }
 
